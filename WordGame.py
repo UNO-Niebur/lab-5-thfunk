@@ -40,7 +40,7 @@ def main():
     while (count < 7):
          print("Guess #", count)
          guess = input("Enter your guess: ").lower()
-         if (len(guess) != 5):
+         while (len(guess) != 5):
              print("Your guess must be 5 letters long. Try again.")
              guess = input("Enter your guess: ").lower()
          print(rateGuess(guess, todayWord))
