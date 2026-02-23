@@ -2,21 +2,29 @@
 
 import random
 
+#Decides if letter is in the word at all.
 def inWord(letter, word):
-    """Returns boolean if letter is anywhere in the given word"""
+    if letter in word:
+        return True
+    else: return False
 
-    return False
-
+#Decides if letter is in the right spot.
 def inSpot(letter, word, spot):
-    """Returns boolean response if letter is in the given spot in the word."""
+    if (letter == word[spot]):
+        return True
+    else: return
 
-    return False
-
+#Rates guess lower case if letter is in the word but in the wrong spot, capital letter if the letter is in the right spot, and * if the letter is not in the word at all.
 def rateGuess(myGuess, word):
-    """Rates your guess and returns a word with the following features.
-    - Capital letter if the letter is in the right spot
-    - Lower case letter if the letter is in the word but in the wrong spot
-    - * if the letter is not in the word at all"""
+    rating = ""
+    for i in range(len(myGuess)):
+        if (inSpot(myGuess[i], word, i)):
+            rating = rating + myGuess[i].upper()
+        elif (inWord(myGuess[i], word)):
+            rating = rating + myGuess[i].lower()
+        else:
+            rating = rating + "*"
+    return rating
 
 
 def main():
@@ -26,15 +34,23 @@ def main():
     wordList = content.split("\n")
     todayWord = random.choice(wordList)
     print(todayWord)
-
-    #User should get 6 guesses to guess
-
-    #Ask user for their guess
-    #Give feedback using on their word:
-
-
-
-
+    print("You will have 6 changes to guess my 5 letter word. A capital letter will indicate that the letter is in the right spot, a lowercase letter will mean that the letter is in the word but in the wrong spot, and a * will mean that the letter is not in the word at all.")
+    #6 changes to guess the word:
+    count = 1
+    while (count < 7):
+         print("Guess #", count)
+         guess = input("Enter your guess: ").lower()
+         if (len(guess) != 5):
+             print("Your guess must be 5 letters long. Try again.")
+             guess = input("Enter your guess: ").lower()
+         print(rateGuess(guess, todayWord))
+         if (guess == todayWord):
+             print("Congratulations! You guessed the", todayWord," in ", count, "guesses!")
+             break
+         count += 1
+    if (count == 7):
+        print("Sorry, you ran out of guesses. The word was", todayWord)
+    
 
 if __name__ == '__main__':
   main()
